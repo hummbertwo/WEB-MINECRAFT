@@ -6,10 +6,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`Error en la API externa: ${response.status}`);
-    }
-
+    if (!response.ok) throw new Error(`Error API externa: ${response.status}`);
     const data = await response.json();
 
     // Aseguramos que siempre haya players
