@@ -1,27 +1,27 @@
-// server.js (CommonJS)
-const express = require("express");
-const cors = require("cors");
-const { status } = require("minecraft-server-util");
+// api/status.js
+import mc from "minecraft-server-util";
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
-
-const SERVER_IP = "smpcremaserver.duckdns.org";
-const SERVER_QUERY_PORT = 25575;
-
-app.get("/api/status", async (req, res) => {
+export default async function handler(req, res) {
   try {
-    const result = await status(SERVER_IP, SERVER_QUERY_PORT);
-    res.json({
+    const options = {
+      timeout: 1000 * 5,
+      enableSRV: true
+    };
+
+    // Cambia IP y puerto por los de tu server
+    const response = await mc.status("smpcremaserver.duckdns.org", 25565, options);
+
+    res.status(200).json({
       online: true,
-      players: result.players.sample ? result.players.sample.map(p => p.name) : [],
-      maxPlayers: result.players.max
+      players: response.players.sample ? response.players.sample.map(p => p.name) : [],
+      maxPlayers: response.players.max
     });
   } catch (err) {
-    res.json({ online: false, players: [], maxPlayers: 0 });
+    console.error(err);
+    res.status(200).json({
+      online: false,
+      players: [],
+      maxPlayers: 0
+    });
   }
-});
-
-app.listen(PORT, () => console.log(`Backend corriendo en puerto ${PORT}`));
+}
