@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const response = await fetch(apiUrl);
     const data = await response.json();
 
-    // Evitamos que falle si no hay players
+    // Evitar que falle si no hay jugadores
     if (!data.players) {
       data.players = { online: 0, max: 0, list: [] };
       data.online = false;
