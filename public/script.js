@@ -1,10 +1,10 @@
-const serverIP = "smpcremaserver.duckdns.org"; // 🔴 Cambia por tu IP/Dominio real
-const BACKEND_URL = "/api/status.js"; // cuando lo subas a Vercel, tu backend estará aquí
+// === CONFIG ===
+const BACKEND_URL = "/api/status"; // ✅ usa la ruta serverless en Vercel
 
 // === FETCH STATUS SERVER ===
 async function fetchServerStatus() {
   try {
-    const res = await fetch(BACKEND_URL);
+    const res = await fetch(BACKEND_URL); // 🔥 ahora llama tu backend en Vercel
     const data = await res.json();
 
     const statusDiv = document.getElementById("status");
@@ -17,11 +17,11 @@ async function fetchServerStatus() {
       return;
     }
 
-    statusDiv.innerHTML = `✅ Online - Jugadores: ${data.players.length}/${data.maxPlayers}`;
+    statusDiv.innerHTML = `✅ Online - Jugadores: ${data.players.online}/${data.players.max}`;
     statusDiv.style.color = "lightgreen";
 
-    if (data.players && data.players.length > 0) {
-      data.players.forEach(player => {
+    if (data.players.list && data.players.list.length > 0) {
+      data.players.list.forEach(player => {
         const card = document.createElement("div");
         card.className = "player-card";
 
@@ -57,7 +57,7 @@ closeModal.onclick = () => { modal.style.display = "none"; };
 window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
 
 copyBtn.onclick = () => {
-  navigator.clipboard.writeText(serverIP).then(() => {
+  navigator.clipboard.writeText("smpcremaserver.duckdns.org").then(() => {
     copyMsg.textContent = "✅ IP copiada al portapapeles";
     setTimeout(() => copyMsg.textContent = "", 2000);
   });
