@@ -1,9 +1,8 @@
 {
   "name": "minecraft-status",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "node api/status.js"
-  },
-  "dependencies": {}
+  "type": "module",
+  "dependencies": {
+    "minecraft-server-util": "^5.2.5"
+  }
 }

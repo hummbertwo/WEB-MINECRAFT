@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>MiServidor Minecraft</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servidor Minecraft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header>
-    <h1>MiServidor Minecraft</h1>
-    <div id="status">Cargando estado...</div>
+  <!-- HEADER -->
+  <header class="header">
+    <h1>Servidor Minecraft</h1>
+    <div id="status" class="status">Cargando...</div>
   </header>
 
-  <section id="players-section">
-    <h2>Jugadores Conectados</h2>
-    <div id="players"></div>
+  <!-- BOTÓN DE UNIRSE -->
+  <div class="join-container">
+    <button id="joinBtn" class="join-btn">PLAY</button>
+  </div>
+
+  <!-- MAPA -->
+  <section class="map-section">
+    <h2>Mapa en tiempo real</h2>
+    <iframe class="map-frame" src="http://smpcremaserver.duckdns.org:8500/" title="Dynmap"></iframe>
+    <a href="http://smpcremaserver.duckdns.org:8500/" target="_blank">
+      <button class="btn-open-map">Abrir en grande</button>
+    </a>
   </section>
 
-  <section id="dynmap-section">
-    <h2>Mapa del Servidor</h2>
-    <iframe src="https://TU_DYNMAP_URL" width="100%" height="500"></iframe>
-  </section>
+  <!-- JUGADORES -->
+  <main>
+    <section id="players" class="players-container">
+      <!-- Cards de jugadores -->
+    </section>
+  </main>
 
-  <section id="updates-section">
-    <h2>Actualizaciones</h2>
-    <ul>
-      <li>Versión 1.19.4 - Nuevo mundo Nether</li>
-      <li>Evento PvP semanal</li>
-    </ul>
-  </section>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Minecraft Server Status UI</p>
+  </footer>
 
-  <section id="downloads-section">
-    <h2>Descargas</h2>
-    <a href="mods/modpack.zip" download>Descargar Mods</a>
-    <a href="mods/client-version.zip" download>Descargar Cliente</a>
-  </section>
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Conectar al servidor</h2>
+      <p>IP del Servidor: <strong id="serverIP">tuservidor.com</strong></p>
+      <p>Puedes copiar la IP y pegarla en tu Minecraft.</p>
+      <button id="copyBtn" class="copy-btn">Copiar IP</button>
+      <p id="copyMsg" class="copy-msg"></p>
+    </div>
+  </div>
 
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>
