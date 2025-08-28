@@ -1,5 +1,5 @@
 const serverIP = "smpcremaserver.duckdns.org"; // 🔴 Cambia por tu IP/Dominio real
-const BACKEND_URL = "/api/status"; // cuando lo subas a Vercel, tu backend estará aquí
+const BACKEND_URL = "/api/status.js"; // cuando lo subas a Vercel, tu backend estará aquí
 
 // === FETCH STATUS SERVER ===
 async function fetchServerStatus() {
