@@ -4,7 +4,7 @@ const BACKEND_URL = "/api/status"; // ✅ usa la ruta serverless en Vercel
 // === FETCH STATUS SERVER ===
 async function fetchServerStatus() {
   try {
-    const res = await fetch(BACKEND_URL); // 🔥 ahora llama tu backend en Vercel
+    const res = await fetch(`/api/status`); // 🔥 ahora llama tu backend en Vercel
     const data = await res.json();
 
     const statusDiv = document.getElementById("status");
