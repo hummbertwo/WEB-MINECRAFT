@@ -11,11 +11,11 @@ async function fetchServerStatus() {
     const playersDiv = document.getElementById("players");
     playersDiv.innerHTML = "";
 
-    if (!data.online) {
-      statusDiv.innerHTML = "❌ Servidor Offline";
-      statusDiv.style.color = "red";
-      return;
-    }
+   if (!data.online || !data.players) {
+  statusDiv.innerHTML = "❌ Servidor Offline";
+  statusDiv.style.color = "red";
+  return;
+}
 
     statusDiv.innerHTML = `✅ Online - Jugadores: ${data.players.online}/${data.players.max}`;
     statusDiv.style.color = "lightgreen";
