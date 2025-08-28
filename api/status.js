@@ -1,27 +1,31 @@
-// api/status.js
-import mc from "minecraft-server-util";
-
 export default async function handler(req, res) {
+  const serverIP = "smpcremaserver.duckdns.org"; // cambia por tu IP/Dominio real
+  const API_URL = `https://api.mcsrvstat.us/2/${serverIP}`;
+
   try {
-    const options = {
-      timeout: 1000 * 5,
-      enableSRV: true
-    };
+    const response = await fetch(API_URL);
+    const data = await response.json();
 
-    // Cambia IP y puerto por los de tu server
-    const response = await mc.status("smpcremaserver.duckdns.org", 25565, options);
+    if (!data.online) {
+      return res.status(200).json({
+        online: false,
+        maxPlayers: 0,
+        players: []
+      });
+    }
 
-    res.status(200).json({
+    return res.status(200).json({
       online: true,
-      players: response.players.sample ? response.players.sample.map(p => p.name) : [],
-      maxPlayers: response.players.max
+      maxPlayers: data.players.max || 0,
+      players: data.players.list || []
     });
-  } catch (err) {
-    console.error(err);
-    res.status(200).json({
+
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({
       online: false,
-      players: [],
-      maxPlayers: 0
+      maxPlayers: 0,
+      players: []
     });
   }
 }
