@@ -10,7 +10,6 @@ async function fetchServerStatus() {
 
     playersDiv.innerHTML = "";
 
-    // Si el servidor está offline o no hay players
     if (!data.online || !data.players) {
       statusDiv.innerHTML = "❌ Servidor Offline";
       statusDiv.style.color = "red";
@@ -18,11 +17,9 @@ async function fetchServerStatus() {
       return;
     }
 
-    // Servidor online
     statusDiv.innerHTML = `✅ Online - Jugadores: ${data.players.online}/${data.players.max}`;
     statusDiv.style.color = "lightgreen";
 
-    // Mostrar lista de jugadores
     if (data.players.list && data.players.list.length > 0) {
       data.players.list.forEach(player => {
         const card = document.createElement("div");
