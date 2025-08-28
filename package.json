@@ -2,7 +2,5 @@
   "name": "minecraft-status",
   "version": "1.0.0",
   "type": "module",
-  "dependencies": {
-    "minecraft-server-util": "^5.2.5"
-  }
+  "dependencies": {}
 }
