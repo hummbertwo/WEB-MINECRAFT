@@ -1,25 +1,28 @@
-// === CONFIG ===
-const BACKEND_URL = "/api/status"; // ✅ usa la ruta serverless en Vercel
+const BACKEND_URL = "/api/status";
 
-// === FETCH STATUS SERVER ===
 async function fetchServerStatus() {
+  const statusDiv = document.getElementById("status");
+  const playersDiv = document.getElementById("players");
+
   try {
-    const res = await fetch(`/api/status`); // 🔥 ahora llama tu backend en Vercel
+    const res = await fetch(BACKEND_URL);
     const data = await res.json();
 
-    const statusDiv = document.getElementById("status");
-    const playersDiv = document.getElementById("players");
     playersDiv.innerHTML = "";
 
-   if (!data.online || !data.players) {
-  statusDiv.innerHTML = "❌ Servidor Offline";
-  statusDiv.style.color = "red";
-  return;
-}
+    // Si el servidor está offline o no hay players
+    if (!data.online || !data.players) {
+      statusDiv.innerHTML = "❌ Servidor Offline";
+      statusDiv.style.color = "red";
+      playersDiv.innerHTML = "<p>No hay jugadores conectados</p>";
+      return;
+    }
 
+    // Servidor online
     statusDiv.innerHTML = `✅ Online - Jugadores: ${data.players.online}/${data.players.max}`;
     statusDiv.style.color = "lightgreen";
 
+    // Mostrar lista de jugadores
     if (data.players.list && data.players.list.length > 0) {
       data.players.list.forEach(player => {
         const card = document.createElement("div");
@@ -39,9 +42,12 @@ async function fetchServerStatus() {
     } else {
       playersDiv.innerHTML = "<p>No hay jugadores conectados</p>";
     }
+
   } catch (err) {
-    console.error(err);
-    document.getElementById("status").innerHTML = "⚠️ Error al obtener el estado";
+    console.error("Error al obtener estado del servidor:", err);
+    statusDiv.innerHTML = "⚠️ Error al obtener el estado";
+    statusDiv.style.color = "orange";
+    playersDiv.innerHTML = "<p>No hay jugadores conectados</p>";
   }
 }
 
